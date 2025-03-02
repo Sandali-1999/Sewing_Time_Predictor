@@ -52,7 +52,7 @@ def main():
         smo_gender_map[SMO_Gender], 
         SMO_Age, 
         kpi_grade_map[SMO_KPI_Grade], 
-        brand_map[brand], 
+        brand_map[Brand], 
         sub_garment_map[Sub_Garment_Type],
         sample_type_map[Sample_Type], 
         embellishment_map[Embellishment_Level], 
