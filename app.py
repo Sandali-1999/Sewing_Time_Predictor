@@ -35,7 +35,7 @@ def main():
     Embellishment_Level = st.selectbox("Emblishment Level", options=['No Embellishment', 'Simple', 'Moderate', 'Difficult'])
     Fabric_Complexity = st.selectbox("Fabric Complexity", options=['Regular', 'Difficult'])
     Sewing_Units = st.number_input("Sewing Units", min_value=0, step=1)
-    Incentive_Amount = st.number_input("Incentive Amount", min_value=0, step=1)
+    
 
     # Include all features in the mapping
     kpi_grade_map = {'Supper': 5, 'A': 4, 'B': 3, 'C': 2, 'Not Graded': 1}
@@ -59,7 +59,6 @@ def main():
         embellishment_map[Embellishment_Level], 
         fabric_map[Fabric_Complexity],
         Sewing_Units,
-        Incentive_Amount
     ]
     
     # When the 'Predict' button is clicked
