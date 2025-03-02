@@ -2,6 +2,7 @@ import numpy as np
 import pickle
 import pandas as pd
 import streamlit as st
+import lightgbm as lgb
 
 # Load the trained decision tree model
 pickle_in = open("best_model_LightGBM.pkl", "rb")
