@@ -5,7 +5,7 @@ import streamlit as st
 
 # Load the trained decision tree model
 pickle_in = open("best_model_LightGBM.pkl", "rb")
-best_dt_model_LightGBM = pickle.load(pickle_in)
+best_model_LightGBM = pickle.load(pickle_in)
 
 def predict_sewing_time(features):
     """Function to predict sewing time using the LightGBM model."""
@@ -31,8 +31,8 @@ def main():
     Brand = st.selectbox("Department", options=['Victoria Secret', 'Calvin Klein', 'Tommy John', 'LIDL', 'Nike', 'Lacoste'])
     Sub_Garment_Type = st.selectbox("Sub Garment Type", options=['G String', 'Cami', 'Tank Top', 'Thong', 'Hipster', 'Men Brief', 'Brief', 'Boy Short', 'Bralette', 'Boxer'])
     Sample_Type = st.selectbox("Sample Type", options=[ 'Proto Sample', 'SMS Sample', 'Fit Sample', 'Photoshoot Sample', 'Size Set Sample', 'Pre Production Sample', 'Red Tag Sample'])
-    Embellishment_Level = st.selectbox("Emblishment Level", options=['No Emblishment', 'Simple', 'Moderate', 'Difficult')
-    Fabric_Complexity = st.selectbox("Fabric Complexity", options=['Regular', 'Difficult')
+    Embellishment_Level = st.selectbox("Emblishment Level", options=['No Emblishment', 'Simple', 'Moderate', 'Difficult'])
+    Fabric_Complexity = st.selectbox("Fabric Complexity", options=['Regular', 'Difficult'])
     Sewing_Units = st.number_input("Sewing Units", min_value=0, step=1)
     Incentive_Amount = st.number_input("Incentive Amount", min_value=0, step=1)
 
