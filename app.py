@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit as st
 import lightgbm as lgb
 
-# Load the trained decision tree model
+# Load the trained LightGBM model
 pickle_in = open("best_model_LightGBM.pkl", "rb")
 best_model_LightGBM = pickle.load(pickle_in)
 
