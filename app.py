@@ -1,6 +1,5 @@
 import numpy as np
 import pickle
-import pandas as pd
 import streamlit as st
 import lightgbm as lgb
 
@@ -8,10 +7,28 @@ import lightgbm as lgb
 pickle_in = open("best_model_LightGBM.pkl", "rb")
 best_model_LightGBM = pickle.load(pickle_in)
 
-def predict_sewing_time(features):
-    """Function to predict sewing time using the LightGBM model."""
-    prediction = best_model_LightGBM.predict([features])
-    return prediction[0]
+def predict_sewing_time(features, sub_garment, sewing_units):
+    """Function to predict sewing time using the LightGBM model with additional time adjustments."""
+    base_prediction = best_model_LightGBM.predict([features])[0]
+    
+    # Additional time adjustments based on Sub Garment Type
+    additional_time = {
+        'G String': 10,
+        'Cami': 30,
+        'Tank Top': 30,
+        'Boy Short': 20,
+        'Thong': 10,
+        'Men Brief': 15,
+        'Boxer': 20,
+        'Hipster': 15,
+        'Brief': 15,
+        'Bralette': 30,
+    }
+    
+    adjusted_time = base_prediction + additional_time.get(sub_garment, 0)
+    final_time = adjusted_time * sewing_units  # Multiply by the number of sewing units
+    
+    return final_time
 
 def main():
     # HTML for styling
@@ -23,21 +40,18 @@ def main():
     st.markdown(html_temp, unsafe_allow_html=True)
 
     # Create input fields for each feature
-    # SMO Details
     SMO_Gender = st.selectbox("Sewing Machine Operator Gender", options=["Male", "Female"])
     SMO_Age = st.number_input("Sewing Machine Operator Age", min_value=0, step=1)
     SMO_KPI_Grade = st.selectbox("Sewing Machine Operator KPI Grade", options=["Supper", "A", "B", "C", "Not Graded"])
 
-    # Sewing Details
     Brand = st.selectbox("Department", options=['Victoria Secret', 'Calvin Klein', 'Tommy John', 'LIDL', 'Nike', 'Lacoste'])
     Sub_Garment_Type = st.selectbox("Sub Garment Type", options=['G String', 'Cami', 'Tank Top', 'Thong', 'Hipster', 'Men Brief', 'Brief', 'Boy Short', 'Bralette', 'Boxer'])
     Sample_Type = st.selectbox("Sample Type", options=[ 'Proto Sample', 'SMS Sample', 'Fit Sample', 'Photoshoot Sample', 'Size Set Sample', 'Pre Production Sample', 'Red Tag Sample'])
-    Embellishment_Level = st.selectbox("Emblishment Level", options=['No Embellishment', 'Simple', 'Moderate', 'Difficult'])
+    Embellishment_Level = st.selectbox("Embellishment Level", options=['No Embellishment', 'Simple', 'Moderate', 'Difficult'])
     Fabric_Complexity = st.selectbox("Fabric Complexity", options=['Regular', 'Difficult'])
-    Sewing_Units = st.number_input("Sewing Units", min_value=0, step=1)
+    Sewing_Units = st.number_input("Sewing Units", min_value=1, step=1)
     
-
-    # Include all features in the mapping
+    # Mapping dictionaries
     kpi_grade_map = {'Supper': 5, 'A': 4, 'B': 3, 'C': 2, 'Not Graded': 1}
     fabric_map = {'Regular': 1, 'Difficult': 2}
     embellishment_map = {'No Embellishment': 1, 'Simple': 2, 'Moderate': 3, 'Difficult': 4}
@@ -46,9 +60,7 @@ def main():
     brand_map={'Victoria Secret':1, 'Calvin Klein':2, 'Tommy John':3, 'LIDL':4, 'Nike':5, 'Lacoste':6}
     smo_gender_map={'Female':1, 'Male':2}
     
-   
-   
-    # Apply the mapping for all features
+    # Convert categorical inputs to numerical values
     features = [
         smo_gender_map[SMO_Gender], 
         SMO_Age, 
@@ -61,11 +73,10 @@ def main():
         Sewing_Units,
     ]
     
-    # When the 'Predict' button is clicked
+    # Predict button
     if st.button("Predict"):
-        result = predict_sewing_time(features)
-        st.success(f"The predicted Target Sewing Time For SMO: {result}")
+        result = predict_sewing_time(features, Sub_Garment_Type, Sewing_Units)
+        st.success(f"The predicted Target Sewing Time For SMO: {result:.2f} minutes")
 
 if __name__ == '__main__':
     main()
-
