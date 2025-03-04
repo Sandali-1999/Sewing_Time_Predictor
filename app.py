@@ -26,7 +26,7 @@ def predict_sewing_time(features, sub_garment, sewing_units):
     }
     
     adjusted_time = base_prediction + additional_time.get(sub_garment, 0)
-    final_time = adjusted_time * sewing_units + 5 # Multiply by the number of sewing units
+    final_time = adjusted_time * sewing_units + 10 # Multiply by the number of sewing units
     
     return final_time
 
