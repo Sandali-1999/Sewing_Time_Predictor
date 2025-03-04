@@ -13,16 +13,16 @@ def predict_sewing_time(features, sub_garment, sewing_units):
     
     # Additional time adjustments based on Sub Garment Type
     additional_time = {
-        'G String': 10,
+        'G String': 25,
         'Cami': 30,
-        'Tank Top': 30,
-        'Boy Short': 20,
-        'Thong': 10,
-        'Men Brief': 15,
-        'Boxer': 20,
-        'Hipster': 15,
-        'Brief': 15,
-        'Bralette': 30,
+        'Tank Top': 35,
+        'Boy Short': 75,
+        'Thong': 50,
+        'Men Brief': 65,
+        'Boxer': 105,
+        'Hipster': 55,
+        'Brief': 70,
+        'Bralette': 95,
     }
     
     adjusted_time = base_prediction + additional_time.get(sub_garment, 0)
