@@ -43,7 +43,7 @@ def main():
     SMO_Gender = st.selectbox("Sewing Machine Operator Gender", options=["Male", "Female"])
     SMO_KPI_Grade = st.selectbox("Sewing Machine Operator KPI Grade", options=["Supper", "A", "B", "C", "Not Graded"])
 
-    Brand = st.selectbox("Department", options=['Victoria Secret', 'Calvin Klein', 'Tommy John', 'LIDL', 'Nike', 'Lacoste'])
+    Brand = st.selectbox("Brand", options=['Victoria Secret', 'Calvin Klein', 'Tommy John', 'LIDL', 'Nike', 'Lacoste'])
     Sub_Garment_Type = st.selectbox("Sub Garment Type", options=['G String', 'Cami', 'Tank Top', 'Thong', 'Hipster', 'Men Brief', 'Brief', 'Boy Short', 'Bralette', 'Boxer'])
     Sample_Type = st.selectbox("Sample Type", options=[ 'Proto Sample', 'SMS Sample', 'Fit Sample', 'Photoshoot Sample', 'Size Set Sample', 'Pre Production Sample', 'Red Tag Sample'])
     Sewing_Units = st.number_input("Sewing Units", min_value=1, step=1)
